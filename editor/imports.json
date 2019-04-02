@@ -72,11 +72,9 @@
 		"js/modules/animation.js",
 		"js/modules/undo.js",
 		"js/modules/about.js",
-		"js/modules/jsartoolkit.module.js",
-		"js/modules/PMMmodule.js",
 		"js/modules/actions.js",
-    "js/components/arcontroller.component.js",
-    "js/components/artrackable2d.component.js"
+    "./js/components/artoolkitx.arcontroller.component.js",
+    "./js/components/artoolkitx.artrackable2d.component.js"
 	],
 	"async": [
 		"js/modules/meshPainter.js",

@@ -568,7 +568,10 @@ var LiteGUI = {
 		{
 			var script = document.createElement('script');
 			script.num = i;
-			script.type = 'text/javascript';
+      script.type = 'text/javascript';
+      if(url[i].includes('artoolkitx')) {
+        script.type = 'module';
+      }
 			script.src = url[i] + ( version ? "?version=" + version : "" );
 			script.original_src = url[i];
 			script.async = false;
@@ -2963,7 +2966,7 @@ LiteGUI.Console = Console;
 		var dynamic_section = null;
 		if(editable)
 		{
-			splitinfo = " - " + (Area.splitbar_size + 2) +"px"; //2 px margin ¿?
+			splitinfo = " - " + (Area.splitbar_size + 2) +"px"; //2 px margin ï¿½?
 			splitbar = document.createElement("div");
 			splitbar.className = "litesplitbar " + direction;
 			if(direction == "vertical")

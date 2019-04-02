@@ -25,15 +25,21 @@
 	<script type="text/javascript" src="js/extra/litegui.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/litegui.css">
-    <script type="text/javascript" src="js/extra/typescript.js"></script>
-    <script async src="js/modules/artoolkit.debug.js"></script>
-    <script async src="js/modules/artoolkit.api.js"></script>
+  <script type="text/javascript" src="js/extra/typescript.js"></script>
 
-    <link rel="stylesheet" data-name="js/modules/monaco-editor/dev/vs/editor/editor.main" href="js/modules/monaco-editor/dev/vs/editor/editor.main.css">
-    
+  <link rel="stylesheet" data-name="js/modules/monaco-editor/dev/vs/editor/editor.main" href="js/modules/monaco-editor/dev/vs/editor/editor.main.css">
 
 </head>
 <body class="editor">
+  <script type='text/javascript'>
+    window.artoolkitX_wasm_url = 'js/modules/artoolkitx.js/artoolkitx.wasm';
+  </script>
+  <script type="module" src="js/modules/artoolkitx.js/artoolkitX.api.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('artoolkitX-loaded', () => {
+      window._artoolkitxLoaded = true
+    });
+  </script>
 
 	<script type="text/javascript" src="js/utils/utils.js"></script>
 	<script type="text/javascript" src="js/core.js"></script>
@@ -46,5 +52,6 @@
     <script type="text/javascript">	
         CORE.init();
     </script>
+
 </body>
 </html>
