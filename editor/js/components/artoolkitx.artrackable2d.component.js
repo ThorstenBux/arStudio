@@ -4,7 +4,7 @@ function ArTrackable2D( o )
 {   
     this.arControllerComponent = LS.GlobalScene.findNodeComponents('ArControllerComponent')[0];
     // FIXME: make that static
-    this.trackableTypes = ["Barcode", "Pictorial"];
+    this.trackableTypes = ["Barcode", "Pictorial", "Picture"];
     this._initSubScene = true;
     // FIXME: make that static
     this._defaultTrackableType = 0;
@@ -21,6 +21,10 @@ function ArTrackable2D( o )
         'Hiro' : 'data/hiro.patt',
         'Kanji' : 'data/kanji.patt'
     }
+    this.pictureList = {
+      'Alterra ticket' : 'data/Alterra_Ticket_1.jpg',
+      'Alterra postcard 1' : 'data/Alterra_Postcard_2.jpg'
+  }
 
     for(let i = 0; i <= 63; i++){
         this._barcodeIds.push(i);
@@ -58,7 +62,7 @@ ArTrackable2D.prototype.configure = function(o)
 Object.defineProperty(ArTrackable2D.prototype, "trackablePath", {
     set: function (v) {
         this._trackablePath = v; 
-        this._trackableType = this.trackableTypes[1];
+        // this._trackableType = this.trackableTypes[1];
         //this.updateMaterial();
     },
     get: function () {
@@ -97,19 +101,26 @@ ArTrackable2D["@inspector"] = function( arTrackable, inspector )
         // TODO: For a first demo we add a dropdown with static paths. After that we will add this again to have an upload function
         // inspector.addMarker2D("Image", arTrackable.trackablePath,
         // {
-        //     // pretitle: AnimationModule.getKeyframeCode(arTrackable, "marker_pattern"),
-        //     // callback: function (v,e) { 
-        //     //     arTrackable.trackablePath =v;
-        //     //     var pattern = e.target.dataset["pattern"];
-        //     //     console.log("---------------pattern file:"+pattern);
-        //     // }
+        //     pretitle: AnimationModule.getKeyframeCode(arTrackable, "marker_pattern"),
+        //     callback: function (v,e) { 
+        //         arTrackable.trackablePath =v;
+        //         var pattern = e.target.dataset["pattern"];
+        //         console.log("---------------pattern file:"+pattern);
+        //     }
         // });
     }
-    else {
+    else if (arTrackable._trackableType === arTrackable.trackableTypes[0]){
         inspector.addCombo("Barcode Id", arTrackable.selectedBarcodeId, {values: arTrackable._barcodeIds, callback: v => {
             arTrackable.selectedBarcodeId = v;
             arTrackable.trackableId = arTrackable.selectedBarcodeId;
         }});
+    } else {
+      inspector.addCombo("Picture", arTrackable._trackablePath, { 
+        values: arTrackable.pictureList, 
+        callback: selection => { 
+            arTrackable._trackablePath = selection;
+        }
+    });
     }
 }
 

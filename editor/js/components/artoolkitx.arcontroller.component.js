@@ -105,13 +105,24 @@ ArControllerComponent.prototype.startAR = function() {
         arController.start().then(() => {
           console.log("start done");
           this._arTrackable2DList.forEach(trackable2D => { 
-            if(trackable2D._trackableType === trackable2D.trackableTypes[1])
-            {
-                arController.addTrackable({trackableType: 'single', url: trackable2D.trackablePath})
-                  .then(trackableId => {
-                    console.log("Register trackable - Pattern with id: "+ trackableId);
-                    trackable2D.trackableId = markerId;
-                  });
+            if(trackable2D._trackableType === trackable2D.trackableTypes[1]) {
+              arController.addTrackable({trackableType: 'single', url: trackable2D.trackablePath})
+                .then(trackableId => {
+                  console.log("Register trackable - Pattern with id: "+ trackableId);
+                  trackable2D.trackableId = trackableId;
+                });
+            } else if (trackable2D._trackableType === trackable2D.trackableTypes[0]) {
+              arController.addTrackable({trackableType: 'single_barcode', barcodeId: trackable2D.selectedBarcodeId})
+                .then(trackableId => {
+                  console.log("Register trackable - Barcode with id: "+ trackableId);
+                  trackable2D.trackableId = trackableId;
+                });
+            } else if (trackable2D._trackableType === trackable2D.trackableTypes[2]) {
+              arController.addTrackable({trackableType: '2d', url: trackable2D.trackablePath})
+              .then(trackableId => {
+                console.log("Register trackable - Pattern with id: "+ trackableId);
+                trackable2D.trackableId = trackableId;
+              });
             }
           });
           var left = 0;
