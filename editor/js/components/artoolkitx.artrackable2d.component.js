@@ -24,7 +24,9 @@ function ArTrackable2D( o )
     this.pictureList = {
       'Alterra ticket' : 'data/Alterra_Ticket_1.jpg',
       'Alterra postcard 1' : 'data/Alterra_Postcard_2.jpg'
-  }
+    }
+    this._picturePath = this._picturePath || this.pictureList[Object.keys(this.pictureList)[0]];
+
 
     for(let i = 0; i <= 63; i++){
         this._barcodeIds.push(i);
@@ -115,7 +117,7 @@ ArTrackable2D["@inspector"] = function( arTrackable, inspector )
             arTrackable.trackableId = arTrackable.selectedBarcodeId;
         }});
     } else {
-      inspector.addCombo("Picture", arTrackable._trackablePath, { 
+      inspector.addCombo("Picture", arTrackable._picturePath, { 
         values: arTrackable.pictureList, 
         callback: selection => { 
             arTrackable._trackablePath = selection;

@@ -106,7 +106,7 @@ ArControllerComponent.prototype.startAR = function() {
           console.log("start done");
           this._arTrackable2DList.forEach(trackable2D => { 
             if(trackable2D._trackableType === trackable2D.trackableTypes[1]) {
-              arController.addTrackable({trackableType: 'single', url: trackable2D.trackablePath})
+              arController.addTrackable({trackableType: 'single', url: trackable2D._trackablePath})
                 .then(trackableId => {
                   console.log("Register trackable - Pattern with id: "+ trackableId);
                   trackable2D.trackableId = trackableId;
@@ -118,7 +118,7 @@ ArControllerComponent.prototype.startAR = function() {
                   trackable2D.trackableId = trackableId;
                 });
             } else if (trackable2D._trackableType === trackable2D.trackableTypes[2]) {
-              arController.addTrackable({trackableType: '2d', url: trackable2D.trackablePath})
+              arController.addTrackable({trackableType: '2d', url: trackable2D._picturePath})
               .then(trackableId => {
                 console.log("Register trackable - Pattern with id: "+ trackableId);
                 trackable2D.trackableId = trackableId;
@@ -161,7 +161,7 @@ ArControllerComponent.prototype.startAR = function() {
                 selectedCanvas.before(stream);
                 cw = selectedCanvas.width();
                 ch = selectedCanvas.height();
-                selectedCanvas.css("z-index",99);
+                selectedCanvas.css("z-index",10);
                 selectedCanvas.css("position","absolute");
             }
             else if(canvas.length>1)
@@ -175,7 +175,7 @@ ArControllerComponent.prototype.startAR = function() {
               {
                   cw = selectedCanvas.width();
                   ch = selectedCanvas.height();
-                  selectedCanvas.css("z-index",99);
+                  selectedCanvas.css("z-index",10);
                   selectedCanvas.css("position","absolute");
               }
             }
@@ -332,15 +332,7 @@ ArControllerComponent.prototype.unRegisterTrackable = function(arTrackable2D){
 }
 
 ArControllerComponent.prototype.onTrackableFound = function (ev){
-    const markerIndex = ev.data.index;
-    const markerType = ev.data.type;
-    const marker = ev.data.marker;
-    //Look for a barcode trackable
-    let trackableId = ev.data.marker.idMatrix;
-    //Look for a pattern trackable
-    if(trackableId === undefined || trackableId < 0) {
-        trackableId = ev.data.marker.idPatt;
-    }
+    let trackableId = ev.data.trackableId;
     
     if (trackableId !== -1) {
         console.log("saw a trackable with id", trackableId);
@@ -353,7 +345,7 @@ ArControllerComponent.prototype.onTrackableFound = function (ev){
                 // Note that you need to copy the values of the transformation matrix,
                 // as the event transformation matrix is reused for each marker event
                 // sent by an ARController.
-                var transform = ev.data.matrix;
+                var transform = ev.data.arCameraViewRH;
                 // console.log(transform);
 
                 // Apply transform to marker root
