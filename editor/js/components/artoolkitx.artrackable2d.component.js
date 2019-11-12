@@ -23,7 +23,7 @@ function ArTrackable2D( o )
     }
     this.pictureList = {
       'Alterra ticket' : 'data/Alterra_Ticket_1.jpg',
-      'Alterra postcard 1' : 'data/Alterra_Postcard_2.jpg'
+      'Alterra postcard 4' : 'data/Alterra_Postcard_4.jpg'
     }
     this._picturePath = this._picturePath || this.pictureList[Object.keys(this.pictureList)[0]];
 
@@ -120,7 +120,7 @@ ArTrackable2D["@inspector"] = function( arTrackable, inspector )
       inspector.addCombo("Picture", arTrackable._picturePath, { 
         values: arTrackable.pictureList, 
         callback: selection => { 
-            arTrackable._trackablePath = selection;
+            arTrackable._picturePath = selection;
         }
     });
     }

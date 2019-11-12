@@ -190,7 +190,7 @@ ArControllerComponent.prototype.startAR = function() {
           this.arCamera.background_color=[0, 0, 0, 0];
           this.arCamera.clear_color = true; //We must clear buffer from first camera.
           this.arCameraNode.addComponent(this.arCamera);
-          this.recalculateViewPort(cw, ch, vw, vh);         
+          this.recalculateViewPort(cw, ch, vw, vh);
           self = this;
           window.addEventListener('resize', function() {
               var selectedCanvas = $(canvas[0]);
@@ -346,14 +346,15 @@ ArControllerComponent.prototype.onTrackableFound = function (ev){
                 // as the event transformation matrix is reused for each marker event
                 // sent by an ARController.
                 var transform = ev.data.arCameraViewRH;
-                // console.log(transform);
+                console.log(transform);
 
                 // Apply transform to marker root
                 if(this.arController.orientation=="portrait")
                 {
+                    console.log('portrait')
                     let rotMat = mat4.create();  
                     mat4.identity(rotMat);  
-                    mat4.rotateZ(rotMat, rotMat, -1.5708);       // Rotate around z by 90°   
+                    mat4.rotateZ(rotMat, rotMat, -1.5708);       // Rotate around z by 90°
                     mat4.multiply(transform, rotMat, transform);
 
                 }
